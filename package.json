@@ -7,7 +7,10 @@
     "ai-engine"
   ],
   "scripts": {
-    "dev": "echo Run app-specific dev scripts",
-    "build": "echo Run app-specific build scripts"
+    "dev": "npm run -w apps/web dev",
+    "dev:web": "npm run -w apps/web dev",
+    "dev:server": "npm run -w apps/server dev",
+    "build": "npm run -w apps/web build",
+    "build:server": "npm run -w apps/server build"
   }
 }

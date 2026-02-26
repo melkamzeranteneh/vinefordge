@@ -1,36 +1,27 @@
 import { Router } from 'express';
-// Assume a service that communicates with the Python MCP server
-// import { forgeFromNode } from '../services/mcpService'; 
-import { VineNode } from 'packages/types/src/index';
+import { requireAuth, requireBoardAccess } from '../middleware/supabaseAuth';
+import { forgeFromNode } from '../services/forgeService';
 
 const router = Router();
 
-router.post('/forge', async (req, res) => {
-  const { node } = req.body as { node: VineNode };
+router.post('/', requireAuth, requireBoardAccess(), async (req, res) => {
+  const { nodeId, content, boardId, parentPosition } = req.body as {
+    nodeId?: string;
+    content?: string;
+    boardId?: string;
+    parentPosition?: { x: number; y: number };
+  };
 
-  if (!node) {
-    return res.status(400).json({ error: 'Node is required' });
+  if (!nodeId || !content || !boardId) {
+    return res.status(400).json({ error: 'nodeId, content, and boardId are required' });
   }
 
   try {
-    // This is where you would call the Python MCP server
-    // const newNodes = await forgeFromNode(node); 
-
-    // Placeholder response:
-    const parentX = node.position.x;
-    const parentY = node.position.y;
-
-    const newNodes: Partial<VineNode>[] = [
-      { id: 'new-1', data: { title: 'New Idea 1', content: '...', status: 'idle', vectorId: '' }, position: { x: parentX + 300, y: parentY - 150 } },
-      { id: 'new-2', data: { title: 'New Idea 2', content: '...', status: 'idle', vectorId: '' }, position: { x: parentX + 300, y: parentY } },
-      { id: 'new-3', data: { title: 'New Idea 3', content: '...', status: 'idle', vectorId: '' }, position: { x: parentX + 300, y: parentY + 150 } },
-    ];
-
-
-    res.json({ nodes: newNodes });
+    const nodes = await forgeFromNode({ nodeId, content, parentPosition });
+    return res.json({ nodes });
   } catch (error) {
     console.error('Error forging nodes:', error);
-    res.status(500).json({ error: 'Failed to forge nodes' });
+    return res.status(500).json({ error: 'Failed to forge nodes' });
   }
 });
 

@@ -20,7 +20,19 @@ export type VineCanvasState = {
 };
 
 const useVineStore = create<VineCanvasState>((set, get) => ({
-  nodes: [],
+  nodes: [
+    {
+      id: '1',
+      type: 'text',
+      position: { x: 250, y: 200 },
+      data: {
+        title: 'Welcome to Vineforge!',
+        content: 'This is your first node. Drag me or add more!',
+        status: 'idle',
+        vectorId: 'v0',
+      },
+    },
+  ],
   edges: [],
   onNodesChange: (changes) => {
     set({
