@@ -1,0 +1,13 @@
+{
+  "name": "vineforge",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "ai-engine"
+  ],
+  "scripts": {
+    "dev": "echo Run app-specific dev scripts",
+    "build": "echo Run app-specific build scripts"
+  }
+}
