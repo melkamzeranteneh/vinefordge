@@ -12,5 +12,8 @@
     "dev:server": "npm run -w apps/server dev",
     "build": "npm run -w apps/web build",
     "build:server": "npm run -w apps/server build"
+  },
+  "dependencies": {
+    "pnpm": "^10.30.3"
   }
 }

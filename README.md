@@ -91,15 +91,7 @@ If Redis is installed locally:
 redis-server
 ```
 
-If you are on Windows and `redis-server` is not recognized, use one of these options:
-
-1. Run Redis with Docker (fastest):
-
-```bash
-docker run --name vineforge-redis -p 6379:6379 -d redis:7-alpine
-```
-
-2. Use a hosted Redis provider and set `REDIS_URL` in `apps/server/.env`.
+If you are on Windows and `redis-server` is not recognized, set `REDIS_URL` in `apps/server/.env` to point to a Windows Native Redis or a hosted Redis provider.
 
 ### 2) Start AI Engine (FastAPI)
 
