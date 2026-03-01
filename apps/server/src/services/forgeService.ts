@@ -7,10 +7,8 @@ export type ForgeRequest = {
 };
 
 export async function forgeFromNode(input: ForgeRequest): Promise<Partial<VineNode>[]> {
-  const mcpUrl = process.env.MCP_URL;
-  if (!mcpUrl) {
-    return fallbackFanOut(input);
-  }
+  const mcpUrl = process.env.MCP_URL ?? 'http://localhost:8000';
+
 
   try {
     const response = await fetch(`${mcpUrl}/forge`, {
