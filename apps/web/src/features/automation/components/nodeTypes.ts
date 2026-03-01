@@ -1,5 +1,5 @@
-import TextNode from './TextNode';
 import AINode from './AINode';
+import TextNode from './TextNode';
 
 export const nodeTypes = {
   text: TextNode,

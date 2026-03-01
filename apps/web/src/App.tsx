@@ -1,13 +1,9 @@
 
 import React from 'react';
-import VineCanvas from './components/VineCanvas';
+import AppShell from './app/layout/AppShell';
 
 const App: React.FC = () => {
-  return (
-    <div className="w-screen h-screen">
-      <VineCanvas />
-    </div>
-  );
+  return <AppShell />;
 };
 
 export default App;
