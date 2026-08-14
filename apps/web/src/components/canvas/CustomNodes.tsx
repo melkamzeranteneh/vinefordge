@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Handle, Position, NodeProps } from '@xyflow/react';
 import { Workflow, BookOpen, Puzzle, MousePointer2, Calculator, MoreVertical } from 'lucide-react';
-import { cn } from '../../shared/utils';
+import { cn } from '@/shared/utils';
 
 export const TriggerNode = memo(({ data }: NodeProps) => {
     return (

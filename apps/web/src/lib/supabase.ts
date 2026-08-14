@@ -1,10 +1,19 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, type SupabaseClient } from '@supabase/supabase-js';
 
-const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
-const supabaseAnonKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
+let client: SupabaseClient | null = null;
 
-if (!supabaseUrl || !supabaseAnonKey) {
+export function getSupabase(): SupabaseClient {
+  if (client) {
+    return client;
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
     console.warn('Supabase credentials missing. Auth will not work until .env is configured.');
-}
+  }
 
-export const supabase = createClient(supabaseUrl || '', supabaseAnonKey || '');
+  client = createClient(supabaseUrl || '', supabaseAnonKey || '');
+  return client;
+}

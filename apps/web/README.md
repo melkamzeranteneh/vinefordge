@@ -1,21 +1,27 @@
 # Vineforge Web
 
-This is the React + Vite frontend for Vineforge, featuring:
-- Infinite canvas powered by @xyflow/react
-- Zustand for state management
-- Tailwind CSS for styling
-- Custom node types (AI, Text)
+Frontend + API for Vineforge, built with Next.js 14 (App Router), Tailwind CSS, and XYFlow.
+
+## Pages
+
+- `/` — Landing
+- `/auth` — Supabase email/password auth
+- `/dashboard` — Board list
+- `/canvas/[boardId]` — Node canvas
+
+## API Route Handlers
+
+- `POST /api/forge` — generate AI sub-idea nodes (Mistral) for a parent node
+- `POST /api/boards/[boardId]/yjs-update` — apply a base64 Yjs update and persist
+- `GET /api/boards/[boardId]/snapshot` — fetch the board snapshot
+
+All API handlers require `Authorization: Bearer <supabase-jwt>` and check board ownership.
 
 ## Getting Started
 
 ```bash
-cd apps/web
-pnpm install # or yarn or npm
-pnpm dev
+npm install         # from repo root
+npm run dev         # http://localhost:3000
 ```
 
-## Folder Structure
-- `src/components/` — Canvas and node components
-- `src/store/` — Zustand store for canvas state
-- `src/hooks/` — Custom React hooks (add yours here)
-- `src/lib/` — Yjs & Supabase clients (to be implemented)
+Set environment variables from `.env.example`. See the repo root `README.md` for the full setup, Supabase schema, and Vercel deployment guide.

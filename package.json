@@ -2,18 +2,12 @@
   "name": "vineforge",
   "private": true,
   "workspaces": [
-    "apps/*",
-    "packages/*",
-    "ai-engine"
+    "apps/*"
   ],
   "scripts": {
     "dev": "npm run -w apps/web dev",
-    "dev:web": "npm run -w apps/web dev",
-    "dev:server": "npm run -w apps/server dev",
     "build": "npm run -w apps/web build",
-    "build:server": "npm run -w apps/server build"
-  },
-  "dependencies": {
-    "pnpm": "^10.30.3"
+    "start": "npm run -w apps/web start",
+    "lint": "npm run -w apps/web lint"
   }
 }
