@@ -80,7 +80,7 @@ export default function CanvasPage() {
     const onConnect = (params: Connection | Edge) => setEdges((eds) => addEdge(params, eds));
 
     return (
-        <div className="flex flex-col h-screen bg-slate-50 dark:bg-[#0B0C0E] overflow-hidden">
+        <div className="flex flex-col h-screen bg-background overflow-hidden">
             {/* Top Navbar */}
             <header className="h-14 border-b border-border bg-background/50 backdrop-blur-md flex items-center justify-between px-6 shrink-0 relative z-20">
                 <div className="flex items-center gap-8">
@@ -129,7 +129,7 @@ export default function CanvasPage() {
                         fitView
                         colorMode="dark"
                     >
-                        <Background color="#333" gap={20} />
+                        <Background color="#2b1f4d" gap={20} />
                         <Controls position="top-right" className="bg-background border-border" />
                     </ReactFlow>
                 </div>
@@ -141,7 +141,7 @@ export default function CanvasPage() {
                             initial={{ x: 320 }}
                             animate={{ x: 0 }}
                             exit={{ x: 320 }}
-                            className="w-80 h-full border-l border-border bg-background shrink-0 flex flex-col z-30 shadow-2xl shadow-blue-500/5"
+                            className="w-80 h-full border-l border-border bg-background shrink-0 flex flex-col z-30 shadow-2xl shadow-purple-500/10"
                         >
                             <div className="p-4 border-b border-border flex items-center justify-between">
                                 <h2 className="font-bold text-lg">Configuration</h2>

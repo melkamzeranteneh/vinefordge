@@ -50,13 +50,13 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-8 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.05),transparent)]">
+    <div className="flex min-h-screen items-center justify-center p-8 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.1),transparent)]">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
-        <div className="bg-card border border-border rounded-2xl p-8 shadow-2xl shadow-blue-500/5">
+        <div className="bg-card border border-border rounded-2xl p-8 shadow-2xl shadow-purple-500/10">
           <div className="flex flex-col items-center mb-8">
             <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center mb-4">
               <BrainCircuit className="text-primary-foreground w-7 h-7" />

@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <ToastProvider />
-        <div className="dark min-h-screen bg-background text-foreground text-slate-200">
+        <div className="dark min-h-screen bg-background text-foreground">
           {children}
         </div>
       </body>

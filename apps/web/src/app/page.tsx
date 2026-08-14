@@ -37,7 +37,7 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 px-8 overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(168,85,247,0.18),transparent)]" />
           <div className="max-w-5xl mx-auto text-center relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -71,7 +71,7 @@ export default function LandingPage() {
               transition={{ delay: 0.2, duration: 0.8 }}
               className="mt-20 relative px-4"
             >
-              <div className="rounded-2xl border border-border bg-card p-2 shadow-2xl shadow-blue-500/10">
+              <div className="rounded-2xl border border-border bg-card p-2 shadow-2xl shadow-purple-500/20">
                 <div className="rounded-xl border border-border bg-background overflow-hidden aspect-video relative group">
                   <div className="absolute inset-0 bg-dot-pattern opacity-10" />
                   <div className="flex items-center justify-center h-full">
@@ -90,7 +90,7 @@ export default function LandingPage() {
           <div className="max-w-6xl mx-auto px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 text-blue-500">
+                <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-purple-500">
                   <Zap className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Instant Collaboration</h3>
@@ -99,7 +99,7 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 text-purple-500">
+                <div className="w-12 h-12 bg-violet-500/10 rounded-xl flex items-center justify-center mb-6 text-violet-500">
                   <BrainCircuit className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">AI Forged Ideas</h3>
@@ -108,7 +108,7 @@ export default function LandingPage() {
                 </p>
               </div>
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center mb-6 text-emerald-500">
+                <div className="w-12 h-12 bg-fuchsia-500/10 rounded-xl flex items-center justify-center mb-6 text-fuchsia-500">
                   <Share2 className="w-6 h-6" />
                 </div>
                 <h3 className="text-xl font-bold mb-4">Seamless Sharing</h3>
