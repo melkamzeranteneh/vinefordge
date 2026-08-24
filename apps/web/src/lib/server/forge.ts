@@ -1,4 +1,4 @@
-import { Mistral } from '@mistralai/mistralai';
+import { generateBranches } from './ai';
 
 export type ForgeRequest = {
   nodeId: string;
@@ -18,9 +18,6 @@ export type ForgeNode = {
   };
 };
 
-type VineBranch = { title: string; content: string };
-
-const MODEL = 'mistral-small-latest';
 const BRANCH_COUNT = 3;
 
 function fanOutPositioning(
@@ -36,58 +33,6 @@ function fanOutPositioning(
   }));
 }
 
-function extractText(
-  content: unknown
-): string {
-  if (typeof content === 'string') {
-    return content;
-  }
-  if (Array.isArray(content)) {
-    return content
-      .map((part) => (typeof part === 'string' ? part : (part?.text ?? '')))
-      .join('');
-  }
-  return '';
-}
-
-async function generateBranches(parentContent: string): Promise<VineBranch[]> {
-  const apiKey = process.env.MISTRAL_API_KEY;
-  if (!apiKey) {
-    throw new Error('MISTRAL_API_KEY is not set');
-  }
-
-  const client = new Mistral({ apiKey });
-
-  const response = await client.chat.complete({
-    model: MODEL,
-    responseFormat: { type: 'json_object' },
-    messages: [
-      {
-        role: 'system',
-        content:
-          'You are an AI brainstorming assistant for an infinite canvas tool. ' +
-          'Given a parent idea, you propose three distinct, concise sub-ideas. ' +
-          'Always respond in strict JSON matching the schema: ' +
-          '{"branches":[{"title":"...","content":"..."}]}',
-      },
-      {
-        role: 'user',
-        content:
-          `Parent idea text:\n${parentContent}\n\n` +
-          'Generate exactly 3 distinct next-step ideas that expand this thought.',
-      },
-    ],
-  });
-
-  const text = extractText(response.choices?.[0]?.message?.content);
-  if (!text) {
-    throw new Error('Empty AI response');
-  }
-
-  const parsed = JSON.parse(text) as { branches?: VineBranch[] };
-  return Array.isArray(parsed.branches) ? parsed.branches : [];
-}
-
 function fallbackFanOut(input: ForgeRequest): ForgeNode[] {
   const baseX = input.parentPosition?.x ?? 0;
   const baseY = input.parentPosition?.y ?? 0;
@@ -101,29 +46,24 @@ function fallbackFanOut(input: ForgeRequest): ForgeNode[] {
 }
 
 export async function forgeFromNode(input: ForgeRequest): Promise<ForgeNode[]> {
-  try {
-    const branches = await generateBranches(input.content);
-    if (branches.length === 0) {
-      return fallbackFanOut(input);
-    }
-
-    const baseX = input.parentPosition?.x ?? 0;
-    const baseY = input.parentPosition?.y ?? 0;
-    const positions = fanOutPositioning(baseX, baseY, branches.length);
-
-    return branches.map((branch, idx) => ({
-      id: `${input.nodeId}-branch-${idx + 1}`,
-      type: 'ai' as const,
-      position: positions[idx],
-      data: {
-        title: branch.title,
-        content: branch.content,
-        status: 'idle',
-        vectorId: '',
-      },
-    }));
-  } catch (error) {
-    console.error('AI forge error:', error);
+  const branches = await generateBranches(input.content);
+  if (branches.length === 0) {
     return fallbackFanOut(input);
   }
+
+  const baseX = input.parentPosition?.x ?? 0;
+  const baseY = input.parentPosition?.y ?? 0;
+  const positions = fanOutPositioning(baseX, baseY, branches.length);
+
+  return branches.map((branch, idx) => ({
+    id: `${input.nodeId}-branch-${idx + 1}`,
+    type: 'ai' as const,
+    position: positions[idx],
+    data: {
+      title: branch.title,
+      content: branch.content,
+      status: 'idle',
+      vectorId: '',
+    },
+  }));
 }

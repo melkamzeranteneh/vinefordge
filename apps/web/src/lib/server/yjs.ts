@@ -70,7 +70,16 @@ export async function applyYjsUpdate(boardId: string, updateBase64: string): Pro
   const snapshot = extractSnapshot(doc);
   await saveDoc(boardId, doc);
   await persistSnapshot(boardId, snapshot);
+  await touchBoard(boardId);
   return snapshot;
+}
+
+async function touchBoard(boardId: string): Promise<void> {
+  const admin = getAdminClient();
+  await admin
+    .from('boards')
+    .update({ updated_at: new Date().toISOString() })
+    .eq('id', boardId);
 }
 
 export async function getSnapshot(boardId: string): Promise<BoardSnapshot> {
